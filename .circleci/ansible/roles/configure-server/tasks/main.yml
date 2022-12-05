@@ -7,9 +7,9 @@
 - name: "Install Node.js 13"
   become: true
   apt:
-  name: ["nodejs"]
-  state: latest
-  update_cashe: yes
+    name: ["nodejs"]
+    state: latest
+    update_cashe: yes
 
 - name: "Install PM2 Globally"
   npm:
