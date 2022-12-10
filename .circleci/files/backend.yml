@@ -33,15 +33,15 @@ Resources:
       SecurityGroups:
         - Ref: InstanceSecurityGroup
       KeyName: udapeople
-      ImageId: ami-0d70546e43a941d70
+      ImageId: ami-0a6b2839d44d781b2
       Tags:
         - Key: Name
           Value: !Sub backend-${ID}
-        - Key: Project
-          Value: udapeople
+        # - Key: Project
+        #   Value: udapeople
 
-  InstanceEIP:
-    Type: AWS::EC2::EIP
-    Properties:
-      Domain: vpc
-      InstanceId: !Ref EC2Instance
+  # InstanceEIP:
+  #   Type: AWS::EC2::EIP
+  #   Properties:
+  #     Domain: vpc
+  #     InstanceId: !Ref EC2Instance
