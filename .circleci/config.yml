@@ -72,7 +72,7 @@ commands:
             then
               cd ~/project/backend
               npm install
-              npm run migration:revert
+              npm run migrations:revert
             fi
             
 jobs:
@@ -358,7 +358,7 @@ jobs:
               exit 1
             fi
       # - destroy-environment
-      - revert-migrations
+      # - revert-migrations
   cloudfront-update:
     docker:
       - image: cimg/base:stable
@@ -373,7 +373,7 @@ jobs:
                       list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
                       --no-paginate --output text)
             echo "Old Wokflow ID: $OLD_WORKFLOW_ID"
-            curl https://kvdb.io/${KVDB_BUCKET}/old_workflow_id -d "${OLD_WORKFLOW_ID}"
+            curl https://kvdb.io/${KVDB_BUCKET}/old_workflow_id-1 -d "${OLD_WORKFLOW_ID}"
       - run:
           name: Update cloudfront distribution
           command: |
@@ -382,7 +382,7 @@ jobs:
               --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}" \
               --stack-name InitialStack
       # - destroy-environment
-      - revert-migrations
+      # - revert-migrations
 
   cleanup:
       docker:
@@ -398,7 +398,7 @@ jobs:
                   --query "StackSummaries[*].StackName" \
                   --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
               echo Stack names: "${STACKS[@]}"
-              export OldWorkflowID=$(curl --insecure https://kvdb.io/${KVDB_BUCKET}/old_workflow_id)
+              export OldWorkflowID=$(curl --insecure https://kvdb.io/${KVDB_BUCKET}/old_workflow_id-1)
               echo Old Workflow ID: $OldWorkflowID 
               if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]
               then
@@ -435,19 +435,19 @@ workflows:
       #       - test-backend
       #       - scan-frontend
       #       - scan-backend
-      # - deploy-infrastructure:
+      - deploy-infrastructure:
       #     requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-      #     filters:
-      #       branches:
-      #         only: [main]
-      # - configure-infrastructure:
-      #     requires: [deploy-infrastructure]
-      # - run-migrations
-      #     requires: [configure-infrastructure]
-      - deploy-frontend
-      #     requires: [run-migrations]
-      - deploy-backend
-      #     requires: [run-migrations]
+            filters:
+              branches:
+                only: [main]
+      - configure-infrastructure:
+          requires: [deploy-infrastructure]
+      - run-migrations:
+          requires: [configure-infrastructure]
+      - deploy-frontend:
+          requires: [run-migrations]
+      - deploy-backend:
+          requires: [run-migrations]
       # - smoke-test:
       #     requires: [deploy-backend, deploy-frontend]
       # - cloudfront-update:
