@@ -1,8 +1,0 @@
-https://github.com/SalehHashad/udacity-cloud-devops-engineer-project-3
-
-http://udapeople-b67321c.s3-website-us-east-1.amazonaws.com
-
-https://d8gd61xqdn0dc.cloudfront.net
-
-ec2-52-90-155-3.compute-1.amazonaws.com
-
