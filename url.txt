@@ -2,15 +2,15 @@
 (https://github.com/SalehHashad/udacity-cloud-devops-engineer-project-3)
 ****************************
 Public URL for your S3 Bucket [URL02]
-(http://udapeople-0ff7dae.s3.amazonaws.com/index.html)
+(http://udapeople-7129162.s3.amazonaws.com/index.html)
 **********************
 cloudfront url [URL03]
-(http://d3kk9g7od1k3u9.cloudfront.net)
+(https://d3h4jprbxz1jq9.cloudfront.net)
 ***********************
 endpoint for database 
 (udapeople.c6coaxzwh8os.us-east-1.rds.amazonaws.com)
 ****************************
 url for promethues [URL05]
-(ec2-18-234-144-183.compute-1.amazonaws.com:9090/targets)
-(http://http://18.234.144.183/:9090/targets)
+(ec2-44-203-202-220.compute-1.amazonaws.com:9090/targets)
+(http://44.203.202.220:9090/targets)
 ***********************
